@@ -1,8 +1,9 @@
-export default {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   experimental: {
-    ppr: true,
-    inlineCss: true,
-    useCache: true,
+    // ppr: true,               ← WYŁĄCZONE – to powodowało błąd
+    inlineCss: true,           // możesz zostawić, nie szkodzi
+    useCache: false,           // wyłączone, bo często wiąże się z PPR
   },
   images: {
     formats: ["image/avif", "image/webp"],
@@ -15,3 +16,5 @@ export default {
     ],
   },
 };
+
+export default nextConfig;
