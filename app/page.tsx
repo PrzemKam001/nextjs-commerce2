@@ -39,7 +39,7 @@ export default function HomePage() {
               href="/collections/regaly-led"
               className="border-2 border-white/70 hover:bg-white/10 transition px-12 py-5 rounded-2xl text-xl font-bold text-white"
             >
-              Regały LED
+              Shelves LED
             </a>
           </div>
         </div>
