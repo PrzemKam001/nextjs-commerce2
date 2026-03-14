@@ -73,36 +73,69 @@ export async function shopifyFetch<T>({
   query: string;
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
+  // ──────────────────────────────────────────────────────────────
+  // Dodane logi diagnostyczne
+  console.log('[shopifyFetch] Starting fetch');
+  console.log('[shopifyFetch] Query (first 100 chars):', query.substring(0, 100) + (query.length > 100 ? '...' : ''));
+  console.log('[shopifyFetch] Variables:', variables ? JSON.stringify(variables, null, 2) : 'none');
+  console.log('[shopifyFetch] Endpoint:', endpoint);
+  console.log('[shopifyFetch] Token exists?', !!key);
+  console.log('[shopifyFetch] Token length:', key?.length || 0);
+  // ──────────────────────────────────────────────────────────────
+
   try {
     if (!endpoint) {
+      console.error('[shopifyFetch] SHOPIFY_STORE_DOMAIN is missing');
       throw new Error("SHOPIFY_STORE_DOMAIN environment variable is not set");
     }
 
+    if (!key) {
+      console.error('[shopifyFetch] SHOPIFY_STOREFRONT_ACCESS_TOKEN is missing or empty');
+    }
+
+    const fetchHeaders = {
+      "Content-Type": "application/json",
+      "X-Shopify-Storefront-Access-Token": key || '',  // ← jawnie pusty string jeśli brak
+      ...headers,
+    };
+
+    console.log('[shopifyFetch] Sending headers (keys only):', Object.keys(fetchHeaders));
+
     const result = await fetch(endpoint, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Storefront-Access-Token": key,
-        ...headers,
-      },
+      headers: fetchHeaders,
       body: JSON.stringify({
         ...(query && { query }),
         ...(variables && { variables }),
       }),
+      // cache: 'no-store',   // możesz dodać jeśli chcesz wymusić świeże dane
     });
+
+    console.log('[shopifyFetch] Response status:', result.status);
+    console.log('[shopifyFetch] Response ok:', result.ok);
 
     const body = await result.json();
 
     if (body.errors) {
+      console.error('[shopifyFetch] GraphQL errors:', JSON.stringify(body.errors, null, 2));
       throw body.errors[0];
     }
 
+    console.log('[shopifyFetch] Fetch successful');
     return {
       status: result.status,
       body,
     };
   } catch (e) {
+    console.error('[shopifyFetch] Caught error:', e);
+
     if (isShopifyError(e)) {
+      console.error('[shopifyFetch] Shopify-specific error details:', {
+        cause: e.cause?.toString() || 'unknown',
+        status: e.status || 500,
+        message: e.message,
+        query: query.substring(0, 150) + '...',
+      });
       throw {
         cause: e.cause?.toString() || "unknown",
         status: e.status || 500,
@@ -111,6 +144,7 @@ export async function shopifyFetch<T>({
       };
     }
 
+    console.error('[shopifyFetch] Generic error:', e);
     throw {
       error: e,
       query,
@@ -524,3 +558,4 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
 }
+
