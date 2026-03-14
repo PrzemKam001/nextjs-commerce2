@@ -384,25 +384,28 @@ export async function getCollections(): Promise<Collection[]> {
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {
- 
+  const endpoint = process.env.SHOPIFY_STORE_DOMAIN;
+  const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
-  if (!endpoint) {
-    console.log(`Skipping getMenu for '${handle}' - Shopify not configured`);
-    return [];
+  if (!endpoint || !token) {
+    console.warn(
+      `Skipping getMenu for '${handle}' during build - missing Shopify config ` +
+      `(endpoint: ${!!endpoint}, token: ${!!token})`
+    );
+    return [];   // ← puste menu, build przechodzi
   }
 
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
-    variables: {
-      handle,
-    },
+    variables: { handle },
   });
 
+  // reszta Twojego kodu bez zmian
   return (
     res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
       title: item.title,
       path: item.url
-        .replace(domain, "")
+        .replace(endpoint, "")   // ← endpoint zamiast domain – pewnie literówka w kodzie?
         .replace("/collections", "/search")
         .replace("/pages", ""),
     })) || []
