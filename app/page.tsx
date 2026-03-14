@@ -30,20 +30,20 @@ export default function HomePage() {
             Regały z LED • Personalizowane puchary • Ramki na koszulki • Twoja jaskinia, Twoje zasady.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-5 justify-center">
-            <a 
-              href="/collections/all"
-              className="bg-red-600 hover:bg-red-700 transition px-12 py-5 rounded-2xl text-xl font-bold text-white"
-            >
-              Przejdź do sklepu →
-            </a>
-            <a 
-              href="/collections/regaly-led"
-              className="border-2 border-white/70 hover:bg-white/10 transition px-12 py-5 rounded-2xl text-xl font-bold text-white"
-            >
-              Shelves LED
-            </a>
-          </div>
+         <div className="flex flex-col sm:flex-row gap-5 justify-center">
+  <a 
+    href="/search"                      // ← zamiast /collections/all
+    className="bg-red-600 hover:bg-red-700 transition px-12 py-5 rounded-2xl text-xl font-bold text-white"
+  >
+    Przejdź do sklepu →
+  </a>
+  <a 
+    href="/search/regaly-led"           // ← zamiast /collections/regaly-led
+    className="border-2 border-white/70 hover:bg-white/10 transition px-12 py-5 rounded-2xl text-xl font-bold text-white"
+  >
+    Shelves LED
+  </a>
+</div>
         </div>
 
         {/* subtelny neonowy efekt */}
