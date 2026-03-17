@@ -3,9 +3,9 @@ export const dynamic = 'force-dynamic';
 import Footer from "components/layout/footer";
 
 export const metadata = {
-  title: "MensCaveSaloon – Designerskie gadżety dla Twojej jaskini",
+  title: "MensCaveSaloon – Designer Gadgets for Your Man Cave",
   description:
-    "Regały LED, ramki na koszulki, personalizowane puchary i premium wyposażenie męskiej jaskini. Ships worldwide • Twoja jaskinia, Twoje zasady.",
+    "LED Shelves, Jersey Frames, Personalized Mugs & premium man cave gear. Ships worldwide • Your cave. Your rules.",
   openGraph: {
     type: "website",
   },
@@ -31,10 +31,10 @@ export default function HomePage() {
           </h1>
           
           <p className="text-2xl md:text-3xl text-gray-400 mb-4">
-            Designerskie wyposażenie dla prawdziwych facetów
+            Premium gear for real men
           </p>
           <p className="text-xl md:text-2xl text-gray-500 mb-10 max-w-2xl mx-auto">
-            Regały LED • Personalizowane puchary • Ramki na koszulki<br />
+            LED Shelves • Personalized Mugs • Jersey Frames<br />
             <span className="text-red-500">Your cave. Your rules.</span>
           </p>
 
@@ -43,13 +43,13 @@ export default function HomePage() {
               href="/search"
               className="bg-red-600 hover:bg-red-700 transition-all px-14 py-6 rounded-3xl text-2xl font-bold text-white shadow-2xl shadow-red-600/30"
             >
-              Przejdź do sklepu →
+              Shop Now →
             </a>
             <a 
               href="/search"
               className="border-2 border-white/70 hover:bg-white/10 transition-all px-14 py-6 rounded-3xl text-2xl font-bold text-white"
             >
-              Shop Now
+              Browse Collections
             </a>
           </div>
         </div>
@@ -59,23 +59,23 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* === NOWA SEKCJA KORZYŚCI (zastępuje demo grid) === */}
+      {/* === BENEFITS SECTION === */}
       <div className="bg-zinc-950 py-20">
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-10 text-center">
           <div>
             <div className="text-5xl mb-4">🔥</div>
-            <h3 className="text-2xl font-bold text-white mb-3">Premium jakość</h3>
-            <p className="text-gray-400">Tylko sprawdzone materiały i ręczna personalizacja</p>
+            <h3 className="text-2xl font-bold text-white mb-3">Premium Quality</h3>
+            <p className="text-gray-400">Only the best materials and hand-crafted personalization</p>
           </div>
           <div>
             <div className="text-5xl mb-4">🌍</div>
-            <h3 className="text-2xl font-bold text-white mb-3">Wysyłka na cały świat</h3>
-            <p className="text-gray-400">Szybko i bezpiecznie – do Polski i zagranicy</p>
+            <h3 className="text-2xl font-bold text-white mb-3">Worldwide Shipping</h3>
+            <p className="text-gray-400">Fast and secure delivery to every corner of the world</p>
           </div>
           <div>
             <div className="text-5xl mb-4">🛡️</div>
-            <h3 className="text-2xl font-bold text-white mb-3">Gwarancja satysfakcji</h3>
-            <p className="text-gray-400">30 dni na zwrot • wsparcie 7 dni w tygodniu</p>
+            <h3 className="text-2xl font-bold text-white mb-3">Satisfaction Guarantee</h3>
+            <p className="text-gray-400">30-day returns • Support 7 days a week</p>
           </div>
         </div>
       </div>
